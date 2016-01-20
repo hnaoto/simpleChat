@@ -1,0 +1,423 @@
+html, body, div, span, applet, object, iframe, 
+    h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+    a, abbr, acronym, address, big, cite, code,
+    del, dfn, em, font, img, ins, kbd, q, s, samp,
+    small, strike, strong, sub, sup, tt, var,
+    b, u, i, center,  dl, dt, dd, ol, ul, li,  
+    fieldset, form, label, legend,  
+    table, caption, tbody, tfoot, thead, tr, th, td {  
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    font-size: 100%;
+    vertical-align: baseline;
+    background: transparent;
+}
+ol, ul {
+    list-style: none;
+}
+
+
+
+@font-face {
+    font-family:"big_noodle_titling";
+    src:url("../fonts/big_noodle_titling.woff") format('woff');
+}
+
+
+
+.clear {
+    clear: both;
+}
+
+
+html, body {
+    height: 100%;
+	
+	
+}
+
+
+body{
+	background-color:#EBF2F9;
+	overflow-x:hidden;
+	overflow-y:auto;
+	font-family: Segoe, 'Segoe UI', 'DejaVu Sans', 'Trebuchet MS', Verdana, sans-serif;
+	
+	
+	
+}
+
+
+
+
+section#contents{
+	width:82%;
+	height:100%;
+	
+	float:left;
+}
+
+
+#chat-area{
+	width:97%;
+	height:100%;
+	margin-left:auto;
+	margin-right:auto;
+	overflow:hidden;
+
+}
+
+
+
+
+#messages{
+	background-color:#FFF;
+	margin-top:3%;
+	width:100%;
+	height:90%;
+	overflow-y:auto;
+	overflow-x:hidden;
+	
+}
+
+#messages h1{
+	height: auto;
+    padding: 20px 0 0px 0;
+    width: 95%;
+    color: #B4A9B4;
+    font-family: "kefa";
+    font-weight: lighter;
+    font-size: 1.7rem;
+    border-bottom: 0.10692rem solid #EEE;
+    margin-left: auto;
+    margin-right: auto;
+	
+	
+}
+
+#messages #notification {
+	position:fixed;
+	width:75%;
+	left:3%;
+	background-color:#FFF;
+	
+	
+	
+}
+
+#info_window{
+	height:70px;
+	
+	
+}
+
+
+
+.message{
+	height:auto;
+	padding: 20px 2.5% 20px 2.5%;
+	width:95%;
+	color:#7D7263;
+	font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;
+	
+	
+	
+}
+
+.message .avatar{
+	float:left;
+	width:10%;
+	max-width:75px;
+	min-width:75px;	
+	padding-right: 10px;
+}
+
+
+.message .content{
+	float:left;
+	height:auto;
+	width:90%;
+	
+}
+
+.message span.name{
+	font-family:"Kefa";
+	font-size: 1.7rem;
+}
+
+.message span.timestamp{
+	color:#BABABA;
+	font-size: 0.8rem;
+}
+
+.message p{
+	padding-top:5px;
+	
+}
+
+.message .avatar img{
+	width:75px;
+	border-radius: 50%;
+	
+	
+}
+
+
+#input-messages{
+	background-color:#FFF;
+	height:30px;
+	width:99.8%;
+	border: #BBBBBB solid 1.5px;
+	
+	min-height:40px;
+	color: #7D7263;
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+	box-shadow: 5px 5px 10px 5px rgba(0, 0, 0, 0.12);
+    border-radius:5px; 
+    border: 1px solid rgba(0, 0, 0, 0.15);
+
+}
+
+#input-button{
+	border-right: 1px #bbb solid;
+    width: 40px;
+    height: 100%;
+	float:left;
+	background-image:url(../images/message_button.png);
+	background-size:40px 40px;
+	
+}
+
+
+
+
+#input-button:hover{
+	background-image:url(../images/message_button_hover.png);
+}
+
+
+
+
+
+#input-emoji-button{
+	
+    width: 40px;
+    height: 100%;
+	float:left;
+	background-image:url(../images/emoji_button.png);
+	background-size:40px 40px;
+	cursor:pointer;
+	
+}
+
+#input-emoji-button img{
+	height: 20px;
+	width:30px;
+}
+
+#input-emoji-button:hover{
+	background-image:url(../images/emoji_button_hover.png);	
+}
+
+
+
+
+
+
+
+#emoji-wrapper{
+	position:relative;
+	top:-80px;
+	left:2px;
+	z-index: 1;
+	padding:2px;
+	color: #2C2D30;
+	height:auto;
+	background: #FFF;
+	box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.12);
+	border-radius: 6px;
+	border: 1px solid rgba(0, 0, 0, 0.15);    
+	min-width:120px;
+	display:none;
+}
+
+
+#input-content{
+	height: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+#input-content input{
+	border: none;
+	outline: none;
+    width: 100%;
+    height: 90%;
+    font-size: 1rem;
+	color:inherit;
+}
+
+
+
+
+
+
+#input-menu{
+	position:relative;
+	top:-120px;
+	left:2px;
+	z-index: 10;
+	display: inline-block;
+	vertical-align: top;
+	overflow: hidden;
+	min-width: 220px;
+	height:auto;
+	color: #2C2D30;
+	background: #FFF none repeat scroll 0% 0%;
+	box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.12);
+	border-radius: 6px;
+	border: 1px solid rgba(0, 0, 0, 0.15);
+	display: none;
+	
+}
+
+#input-menu ul{
+	padding:8px 0px 8px 0px;
+	
+	
+}
+
+
+
+#input-menu ul li a {
+	display: block;
+	text-decoration: none;
+	text-transform:uppercase;
+	padding: 0px 1rem 0px 0.75rem;
+	margin: 0px 0.75rem;
+	border-radius: 0.25rem;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	outline: 0px none;
+	font-size: 15px;
+	line-height: 25px;
+	background: transparent none repeat scroll 0px 0px;
+	color: #696269;
+}
+
+#input-menu ul li a:hover{
+	background: #BED7DA none repeat scroll 0% 0%;
+	color: #FFF;
+	text-shadow: 0px 1px 0px rgba(0, 0, 0, 0.1);
+}
+
+
+ 
+nav{
+	background-color:#696269;
+	height:100%;
+	width:18%;                              
+	float:left;
+}
+
+.nav-box{
+	height:75px;
+	margin-bottom: 15px; 
+	position:relative;
+}
+
+.nav-box h2{
+	color:#FFFFFF;
+	font-size:2rem;
+	font-family:"kefa";
+	
+}
+
+
+
+.nav-box img{
+	height:100%;
+	border-radius:50%;
+	float:left;
+	padding:0 10px 0px 10px;
+	
+}
+
+
+
+.nav-box span{
+
+}
+
+.nav-box .pmn{
+	line-height: 13px;
+    padding: 3px;
+    width: 13px;
+    height: 13px;
+    background-color: red;
+    color: #FFF;
+    border-radius: 4px;
+    font-family: monospace;
+    font-weight: bold;
+    position: absolute;
+    left: 15px;
+    bottom: 2px;
+    text-align: center;
+}
+
+
+
+h3{
+	font-size:1.5em;
+	color:#EAF2F9;
+	font-family:"kefa";
+	font-weight:500;
+	float:left;
+	padding: 10px 0px 0px 0px;
+
+}
+
+
+
+
+.selected-box{
+	background-color:#BED7DA;
+	
+	
+	
+}
+
+
+
+
+
+/* Let's get this party started */
+::-webkit-scrollbar {
+    width: 12px;
+}
+ 
+/* Track */
+::-webkit-scrollbar-track {
+    
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+    /*-webkit-border-radius: 10px;
+    border-radius: 10px; */
+    background: rgba(190,215,218,0.8); 
+  
+}
+::-webkit-scrollbar-thumb:window-inactive {
+	background: rgba(190,215,218,0.4); 
+}
+
+
+.visibility {
+	display:none;
+}

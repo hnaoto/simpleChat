@@ -1,0 +1,102 @@
+@charset "UTF-8";
+/* CSS Document */
+
+
+
+
+
+
+
+html, body, div, span, applet, object, iframe, 
+    h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+    a, abbr, acronym, address, big, cite, code,
+    del, dfn, em, font, img, ins, kbd, q, s, samp,
+    small, strike, strong, sub, sup, tt, var,
+    b, u, i, center,  dl, dt, dd, ol, ul, li,  
+    fieldset, form, label, legend,  
+    table, caption, tbody, tfoot, thead, tr, th, td {  
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    font-size: 100%;
+    vertical-align: baseline;
+    background: transparent;
+}
+ol, ul {
+    list-style: none;
+}
+
+
+
+
+
+body{
+	background-image:url(../images/bg.jpg);
+   background-color:#000;
+  -moz-background-size:100%;
+   background-size:100%;
+   background-repeat:no-repeat;
+   font-family: Segoe, 'Segoe UI', 'DejaVu Sans', 'Trebuchet MS', Verdana, sans-serif;
+	
+}
+
+
+
+
+
+html, body {
+    height: 100%;
+	overflow:hidden;
+	
+	
+}
+
+
+#wrapper {
+	
+	width:50%;
+	background-color: rgba(0, 0, 0, 0.5);
+	border-radius:10px;
+	margin-top:40%;
+	margin-left:auto;
+	margin-right:auto;
+	
+	
+	
+	
+}
+
+#content{
+	margin-left:auto;
+	margin-right:auto;
+	padding-top: 5%;
+	padding-bottom:5%;
+	width:80%;
+	height:50%;
+	
+	
+}
+
+
+#content input {
+	color:#7D7463;
+	outline: none;
+    border: none;
+    padding: 13px 0px 13px 0px;
+    font-size: 1.2rem;
+    width: 60%;	
+}
+
+#enter_button{
+
+	background-color:#BED7DA;
+	padding: 14px 40px 14px 40px;
+	border-radius:3px;
+	color:#FFF;
+	font-size:1.2rem;
+	border:none;
+	outline:none;
+	
+	
+}
