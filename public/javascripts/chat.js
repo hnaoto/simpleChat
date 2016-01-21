@@ -4,7 +4,7 @@ $(document).ready(function (){
 	
     var sender = $.cookie('user');
     window.receiver = 'everyone';
-	var socket = io.connect();
+	var socket = io.connect('/', {reconnect: true});
 	
 	//var privateMessages = [];
 	//var publicMessages = [];
@@ -22,7 +22,7 @@ $(document).ready(function (){
 	simpleChat.prototype = {
 			
      init:function() {
-		  this.socket = io.connect();
+		  this.socket = io.connect('/', {reconnect: true});
 		  this.socket.emit('online', {'user': sender});
 		  this.socket.on('online', function(data) {
 			  if (data.user != sender) {
