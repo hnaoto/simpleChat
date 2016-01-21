@@ -4,7 +4,7 @@ $(document).ready(function (){
 	
     var sender = $.cookie('user');
     window.receiver = 'everyone';
-	var socket = io.connect('gentle-waters-23533.herokuapp.com' || 'localhost:8080', {reconnect: true});
+	var socket = io.connect();
 	
 	//var privateMessages = [];
 	//var publicMessages = [];
@@ -22,7 +22,7 @@ $(document).ready(function (){
 	simpleChat.prototype = {
 			
      init:function() {
-		  this.socket = io.connect('gentle-waters-23533.herokuapp.com' || 'localhost:8080', {reconnect: true});
+		  this.socket = io.connect();
 		  this.socket.emit('online', {'user': sender});
 		  this.socket.on('online', function(data) {
 			  if (data.user != sender) {
