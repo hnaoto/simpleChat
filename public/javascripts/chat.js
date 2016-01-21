@@ -1,7 +1,11 @@
+
+
 $(document).ready(function (){
+	
     var sender = $.cookie('user');
     window.receiver = 'everyone';
 	var socket = io.connect();
+	
 	//var privateMessages = [];
 	//var publicMessages = [];
 
@@ -28,7 +32,7 @@ $(document).ready(function (){
 				  var sys = 'You entered the room';
 			  }
 		  	  $('#notification').html(sys);
-			  _flushusers(data.users);
+			  _flushusers(data.users, data.offline);
 			  _privateMessage(sender);
     	   });
 		 
@@ -100,7 +104,7 @@ $(document).ready(function (){
 			var sys = data.user + ' left the room';
 			$('#notification').html(sys);
 			$('.nav-box[name="' + data.user + '"]' ).css('opacity','0.5');
-			
+				
 			//_flushusers(data.users);
 			
 		});

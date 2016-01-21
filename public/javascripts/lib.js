@@ -1,11 +1,11 @@
-   function _flushusers(users){
+   function _flushusers(users, offlineUsers){
 		$('#userlist').empty().append('<li class="nav-box"  name="everyone" onselectstart="return false"> <h2> ＃Default</h2></li>');
 		
 		
-		
+		//merge these two group
 		for (var u in users){
 			avatar =  '<img src="images/avatar_'+ _stringHash(u)+ '.jpg">';
-			$('#userlist').append('<li name="' + u + '"  class="nav-box"  >' + avatar + '<h3>' + u + '</h3><span class="pmn visibility"> 1</span></li>');
+			$('#userlist').append('<li name="' + u + '"  class="nav-box"  >' + avatar + '<h3>' + u + '</h3><span class="pmn visibility"> 0</span></li>');
 			
 			//It is not ideal to use this function here... 
 			/**
@@ -15,18 +15,23 @@
 			}
 			**/
 		}
+		
+		
+		
+			
+		
+		for (var u in offlineUsers){
+			avatar =  '<img src="images/avatar_'+ _stringHash(u)+ '.jpg">';
+			$('#userlist').append('<li name="' + u + '"  class="nav-box"  style="opacity:0.5">' + avatar + '<h3>' + u + '</h3><span class="pmn visibility"> 0</span></li>');
+			
+		}
+		
+		
+		
+		
+		
 	
 		$(".nav-box[name='" + window.receiver + "']").addClass('selected-box');
-		
-					//$('#userlist > li').not($(this)).removeClass('selected-box');
-				//$(this).addClass('selected-box');
-		
-		//$("messages").html("");
-		//$(".message").addClass("visibility");;
-		//$(".everyone").removeClass("visibility");
-		
-
-	
 		
    }
       
@@ -166,7 +171,7 @@
 	
 	function _submitMessageEvent(sender, receiver, socket){
 			$("#input-content input").bind('keydown', function(e){
-			if (e.which === 13 && e.ctrlKey == true) {
+			if (e.which === 13 && e.ctrlKey == true || e.which === 13) {
 				var msg = _showEmoji($(this).val());
 				if (!msg) {return;}
 				if(window.receiver == "everyone") {
