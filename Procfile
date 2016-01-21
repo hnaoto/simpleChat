@@ -1,1 +1,1 @@
-bot: node app.js
+bot: node ./bin/www
