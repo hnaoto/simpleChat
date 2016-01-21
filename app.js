@@ -81,7 +81,7 @@ app.use(function(err, req, res, next) {
 var users = {};
 socketUtility.main(io ,users);
 
-db.add({message:"hi"});
+//db.add({message:"hi"});
 
 
 /**
