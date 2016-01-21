@@ -1,7 +1,6 @@
    function _flushusers(users, offlineUsers){
 		$('#userlist').empty().append('<li class="nav-box"  name="everyone" onselectstart="return false"> <h2> ＃Default</h2></li>');
-		
-		
+		$('#userlist').css('opacity', '1');
 		//merge these two group
 		for (var u in users){
 			avatar =  '<img src="images/avatar_'+ _stringHash(u)+ '.jpg">';

@@ -110,6 +110,21 @@ $(document).ready(function (){
 		});
 		
 		
+		this.socket.on('disconnect', function() {
+			var sys = 'server is down';
+			$('#notification').html(sys);
+			$('#userlist').css('opacity', '0.5');
+		});
+
+
+		socket.on('reconnect', function() {
+  			socket.emit('online', {user: sender});
+			
+		});
+		
+		
+		
+		
 		
 		 _submitMessageEvent(sender, window.receiver, this.socket); 
 		  return this;
