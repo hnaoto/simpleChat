@@ -17,3 +17,6 @@
 * All the users will receive system notifications like "XYZ entered the room", "XYZ left the room", "You are talking to XYZ", "Server is down" .
 * Inline Emoji 
 * Responsive design for mobile user
+
+##TODO 
+https://github.com/hnaoto/simpleChat/issues
