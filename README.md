@@ -16,3 +16,4 @@
 * If some user left the room (closed the tab), his avatar will gray out.
 * All the users will receive system notifications like "XYZ entered the room", "XYZ left the room", "You are talking to XYZ", "Server is down" .
 * Inline Emoji 
+* Responsive design for mobile user
