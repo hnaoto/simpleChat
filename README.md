@@ -1,4 +1,5 @@
 # simpleChat
+A simple chat room web application. 
 
 ##modules dependency
 * express 4 
