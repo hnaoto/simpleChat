@@ -1,3 +1,13 @@
+ 
+   function _mobileMenu(){
+	   	$('#mobile-menu, nav').bind('click', function(e) {
+			
+			$('nav').toggleClass('showing');
+			$('nav ul').toggleClass('showing2');
+		});
+   }
+ 
+ 
    function _flushusers(users, offlineUsers){
 		$('#userlist').empty().append('<li class="nav-box"  name="everyone" onselectstart="return false"> <h2> ＃Default</h2></li>');
 		$('#userlist').css('opacity', '1');
@@ -129,6 +139,7 @@
 				window.receiver = $(this).attr('name');
 				$('#userlist > li').not($(this)).removeClass('selected-box');
 				$(this).addClass('selected-box');
+				$('#mobile-menu').find('h4').html(window.receiver);
 				//console.log(window.receiver);
 	
 	

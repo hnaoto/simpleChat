@@ -22,6 +22,7 @@ $(document).ready(function (){
 	simpleChat.prototype = {
 			
      init:function() {
+		  _mobileMenu();
 		  this.socket = io.connect();
 		  this.socket.emit('online', {'user': sender});
 		  this.socket.on('online', function(data) {
