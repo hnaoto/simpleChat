@@ -179,7 +179,7 @@ section#contents{
 	min-height:40px;
 	color: #7D7263;
     font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
-	box-shadow: 5px 5px 10px 5px rgba(0, 0, 0, 0.12);
+	box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.12);
     border-radius:5px; 
     border: 1px solid rgba(0, 0, 0, 0.15);
 
@@ -432,7 +432,7 @@ h3{
 
 	h4{
 		color: #EAF2F9;
-    	font-family: "kefa";
+    	font-family: "kefa","merriweather";
 		font-size:1.3rem;
 		line-height:30px;
 	}
@@ -440,8 +440,6 @@ h3{
 @media screen and (max-width:1200px) {
 	body{
 		overflow-y:hidden;
-		width:auto;
-		
 	}
 
 
@@ -477,6 +475,7 @@ h3{
 	}
 	
 	#input-messages{
+		width:100%;
 		position:fixed;
 		bottom:0;
 	}
@@ -503,7 +502,10 @@ h3{
 }
 
 @media screen and (max-width:700px){
-	
+	section#contents{
+		height:100%;
+		
+	}
 	
 	.message .avatar {
 		width:50px;	
