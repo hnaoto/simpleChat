@@ -456,6 +456,10 @@ h3{
 	
 	nav ul {
 		display:none;
+		-ms-transition: width 0.4s;
+		-moz-transition: width 0.4s;
+		-o-transition: width 0.4s;
+		-webkit-transition:width 0.4s;	
 	}
 	
 	
@@ -501,6 +505,7 @@ h3{
 
 }
 
+
 @media screen and (max-width:700px){
 	section#contents{
 		height:100%;
@@ -525,6 +530,10 @@ h3{
 	
 	.nav-box .pmn {
 		bottom: 0px;
+		
+	}
+	#input-content input{
+		font-size:0.9rem;
 		
 	}
 }
