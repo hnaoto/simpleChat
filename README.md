@@ -1,12 +1,12 @@
 # simpleChat
-A simple chat room web application. 
+A simple chat room web application.  http://gentle-waters-23533.herokuapp.com/
 
 ##modules dependency
 * express 4 
 * socket.io 
 * cookie-parser
 * ejs
-
+* mongoDB
 
 ##Functionality
 * One could join the "default" chat room after entering username
