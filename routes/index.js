@@ -26,8 +26,8 @@ router.post('/signin', function(req, res, next){
 
 	var users = req.app.get('users_accounts');
 
-	if (users[req.body.name]) {
-		res.redirect('/signin');
+	if (users[req.body.name] || req.body.name == null) {
+		res.render('signin');
 	}else {
 		res.cookie("user", req.body.name, {maxAge: 1000*60*60*24*30});
 		res.redirect('/');

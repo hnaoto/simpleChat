@@ -20,12 +20,6 @@ ol, ul {
 
 
 
-@font-face {
-    font-family:"big_noodle_titling";
-    src:url("../fonts/big_noodle_titling.woff") format('woff');
-}
-
-
 
 .clear {
     clear: both;
