@@ -8,36 +8,26 @@
    }
  
  
-   function _flushusers(users, offlineUsers){
+   function _flushusers(users){
 		$('#userlist').empty().append('<li class="nav-box"  name="everyone" onselectstart="return false"> <h2> ＃Default</h2></li>');
 		$('#userlist').css('opacity', '1');
+
+
+		
 		//merge these two group
-		for (var u in users){
-			avatar =  '<img src="images/avatar_'+ _stringHash(u)+ '.jpg">';
-			$('#userlist').append('<li name="' + u + '"  class="nav-box"  >' + avatar + '<h3>' + u + '</h3><span class="pmn visibility"> 0</span></li>');
+		
+
+	
+		$.each(users, function(key, value) {
+			avatar =  '<img src="images/avatar_'+ _stringHash(key)+ '.jpg">';
+			$('#userlist').append('<li name="' + key + '"  class="nav-box"  >' + avatar + '<h3>' + key + '</h3><span class="pmn visibility"> 0</span></li>');
 			
-			//It is not ideal to use this function here... 
-			/**
-			if (u != $.cookie('user')) {
-				var privateMessagesContainer = "<div id ='" + u + "'>"  +   "</div>";
-				$("#messages").append(privateMessagesContainer);
+			if(!value['online']){
+				$('.nav-box[name=' + key +  ']').css('opacity','0.5');
 			}
-			**/
-		}
+		});
 		
-		
-		
-			
-		
-		for (var u in offlineUsers){
-			avatar =  '<img src="images/avatar_'+ _stringHash(u)+ '.jpg">';
-			$('#userlist').append('<li name="' + u + '"  class="nav-box"  style="opacity:0.5">' + avatar + '<h3>' + u + '</h3><span class="pmn visibility"> 0</span></li>');
-			
-		}
-		
-		
-		
-		
+	
 		
 	
 		$(".nav-box[name='" + window.receiver + "']").addClass('selected-box');
@@ -51,7 +41,7 @@
    
  
    	//clena this function
-	function _message_generator(sender, message, private, local){
+	function _message_generator(sender, message, private, local, history){
 		    var avatar =  '<img src="images/avatar_'+ _stringHash(sender) + '.jpg">';
 			var msg = '';
 
@@ -78,18 +68,22 @@
 			if(!private && !local){
 				msg = '<div class="message everyone visibility">  <div class="avatar">'+ avatar + '</div> <div class="content"><span class= "name">' + sender + '</span><span class="timestamp">'  + _now() + '</span><p>'  +  message + '</p></div><div class="clear"></div></div>';
 			}	
-				
+			
+			
 			return msg;
 	}
 	
 	
-	/** 	
-	function _private_message_generator(sender, message){
-		    var avatar =  '<img src="images/avatar_'+ _stringHash(sender) + '.jpg">';
-			var message = '<div class="message visibility ' + sender  +'">  <div class="avatar">'+ avatar + '</div> <div class="content"><span class= "name">' + sender + '</span><span class="timestamp">'  + _now() + '</span><p>'  +  message + '</p></div><div class="clear"></div></div>';
-			return message;
+	
+	function _hitory_message_generator(sender, receiver, message, local) {
+		var avatar =  '<img src="images/avatar_'+ _stringHash(sender) + '.jpg">';
+		
+		if(local){
+		msg = '<div class="message visibility ' +  receiver  +'" read=true ">  <div class="avatar">'+ avatar + '</div> <div class="content"><span class= "name">' +   sender + '</span><span class="timestamp">'  + _now() + '</span><p>'  +  message + '</p></div><div class="clear"></div></div>';
+		}
+		return msg
+		
 	}
-	**/
 	
 	
 	
@@ -132,7 +126,7 @@
 		
 	}
 	
-	function _privateMessage(sender){
+	function _privateReceiver(sender){
 		
 			$('#userlist > li').click(function() {
 			if($(this).attr('name') != sender) {
@@ -140,14 +134,8 @@
 				$('#userlist > li').not($(this)).removeClass('selected-box');
 				$(this).addClass('selected-box');
 				$('#mobile-menu').find('h4').html(window.receiver);
-				//console.log(window.receiver);
-	
-	
-			    //$("#messages").find("h1").addClass("visibility");
-				//$("#messages").find("everyone").addClass("visibility");
-	
-				//$("#messages").find("h1").addClass("visibility");
-				//$("#messages").append(sys);
+				
+				
 				$(".message").addClass("visibility");
 				
 				var str = '.' + window.receiver;
@@ -196,9 +184,6 @@
 				}
 				socket.emit('messages', {'sender': sender, 'receiver': window.receiver, 'message': msg, timestamp:_now()});
 				$(this).val("").focus();
-				//$("#input-content input")
-				
-				//messageInput.val("").focus();
 			}
 			
 		});

@@ -4,12 +4,7 @@ $(document).ready(function (){
 	
     var sender = $.cookie('user');
     window.receiver = 'everyone';
-	var socket = io.connect();
-	
-	//var privateMessages = [];
-	//var publicMessages = [];
-
-	
+	//var socket = io.connect();
 	
 	
 	
@@ -24,7 +19,8 @@ $(document).ready(function (){
      init:function() {
 		  _mobileMenu();
 		  this.socket = io.connect();
-		  this.socket.emit('online', {'user': sender});
+		  this.socket.emit('online',  {user: sender});
+		  this.socket.emit('history', {user: sender});
 		  this.socket.on('online', function(data) {
 			  if (data.user != sender) {
 				  var sys = data.user + ' entered the room.';
@@ -33,10 +29,83 @@ $(document).ready(function (){
 				  var sys = 'You entered the room';
 			  }
 		  	  $('#notification').html(sys);
-			  _flushusers(data.users, data.offline);
-			  _privateMessage(sender);
-    	   });
+			  _flushusers(data.users);
+			  _privateReceiver(sender);
+    	  });
+		   
+		  
+		  	
+		
+		this.socket.on('offline', function(data){
+			
+			var sys = data.user + ' left the room';
+			$('#notification').html(sys);
+			$('.nav-box[name="' + data.user + '"]' ).css('opacity','0.5');
+				
+			//_flushusers(data.users);
+			
+		});
+		
+		
+		this.socket.on('disconnect', function() {
+			var sys = 'server is down';
+			$('#notification').html(sys);
+			$('#userlist').css('opacity', '0.5');
+		});
+
+
+		this.socket.on('reconnect', function() {
+			var socket = io.connect();
+  			socket.emit('online', {user: sender});
+			
+		});
+		
+		
+		
+		   
+		   
+		   
 		 
+		
+		this.socket.on('history', function(data){
+		
+			console.log(data);
+			
+			
+			$("#messages").find('.message').remove();
+			
+			for (var i = 0; i < data.length; i++) {
+				if(!data[i]['private']) {
+					var message = _message_generator(data[i]['data']['sender'], _showEmoji(data[i]['data']['message']), false, false);
+					$("#messages").append(message);
+				}else {
+					
+						if (data[i]['data']['receiver'] ==  sender ) { 
+							var message = _message_generator(data[i]['data']['sender'], _showEmoji(data[i]['data']['message']), true, false);  
+						}else {
+							var message = _hitory_message_generator(data[i]['data']['sender'],data[i]['data']['receiver'], _showEmoji(data[i]['data']['message']), true);
+						}
+					$("#messages").append(message); 
+				}
+			}
+			
+			
+			/**
+			for (var i = 0; i < data['public'].length; i++) {
+				var message = _message_generator(data['public'][i]['sender'], _showEmoji(data['public'][i]['message']), false, false);
+				$("#messages").append(message);
+			}
+			**/
+			
+				
+				if(window.receiver == 'everyone') {
+					$(".everyone").removeClass("visibility");
+				}
+				
+
+			
+		});
+		
 		
 		this.socket.on('messages', function(data){
 			
@@ -67,15 +136,7 @@ $(document).ready(function (){
 			
 			
 			if(data.receiver == sender) {
-				//privateMessages.push(data);
-				//console.log(privateMessages);
-				//var privateMessage = "<div id ='" + data.sender + "'>"  +   "</div>";
-				//var message = _message_generator(data.sender, _showEmoji(data.message), avatar);
-				//var str = "#" + data.sender;
-				//$(str).append(message);
-				//$("#messages").append(message);
-				//console.log(privateMessage);
-				//var message = _private_message_generator(data.sender, _showEmoji(data.message), avatar);
+	
 				var message =   _message_generator(data.sender, _showEmoji(data.message), true, false);
 				$("#messages").append(message);
 				
@@ -98,33 +159,7 @@ $(document).ready(function (){
 			
 			
 		});
-		
-		
-		this.socket.on('offline', function(data){
-			
-			var sys = data.user + ' left the room';
-			$('#notification').html(sys);
-			$('.nav-box[name="' + data.user + '"]' ).css('opacity','0.5');
-				
-			//_flushusers(data.users);
-			
-		});
-		
-		
-		this.socket.on('disconnect', function() {
-			var sys = 'server is down';
-			$('#notification').html(sys);
-			$('#userlist').css('opacity', '0.5');
-		});
-
-
-		socket.on('reconnect', function() {
-  			socket.emit('online', {user: sender});
-			
-		});
-		
-		
-		
+	
 		
 		
 		 _submitMessageEvent(sender, window.receiver, this.socket); 
@@ -201,135 +236,6 @@ $(document).ready(function (){
 	
 	
 	
-	//simpleChat.privateMessage();
-	//var a = simpleChat.showEmoji("[emoji:3]hi[emoji:12]");
-	//console.log(a);
-	
-			
-	/**		
-		$("#userlist > li").bind("click", function(){
-			console.log('hi');
-			 
-    alert($(this).text());
-		});
-		**/
-		
-	
-	
-	
-	
-	
-	
-	
-	/**
-    socket.emit('online', {'user': sender});
-    socket.on('online', function(data) {
-		if (data.user != sender) {
-			var sys = '<h1>' +  data.user + ' entered the room.</h1>';
-		} else {
-			var sys = '<h1> You entered the room.</h1>';
-		}
-		$('#messages').append(sys);
-		flushusers(data.users);
-    });
-	
-	
-	
-	socket.on('messages', function(data){
-		if(data.receiver='everyone'){
-			//var message = '<div class="message">  <div class="avatar">'+ avatar + '</div> <div class="content"><span class= "name">' + data.sender + '</span><span class="timestamp">'  + now() + '</span><p>'  +  data.message + '</p></div><div class="clear"></div></div>';
-			var message = message_generator(data.sender, data.message);
-			$("#messages").append(message);
-		}
-		
-	});
-	
-	
-	
-	
-	
-	
-	
-	
-		//random number generator 
-	   function flushusers(users){
-		$('#userlist').empty().append('<li class="nav-box selected-box"  name="everyone" onselectstart="return false"> <h2> ＃Default</h2></li>');
-		
-		
-		
-		for (var u in users){
-			var i = Math.round(2 * Math.random());
-			avatar =  '<img src="images/avatar_'+ i + '.jpg">';
-			$('#userlist').append('<li name="' + u + '"  class="nav-box"  onselectstart="return false" >' + avatar + '<h3>' + u + '</h3></li>');
-	
-		}
-		
-		
-		
-		
-			
-		$('#userlist > li').dblclick(function() {
-			if($(this).attr('name') != sender) {
-				receiver = $(this).attr('name');
-				$('#userlist > li').not($(this)).removeClass('selected-box');
-				$(this).addClass('selected-box');
-				console.log(receiver);
-				//showSayTo();
-			}
-		
-		});
-		
-	}
-	
-	function now() {
-    var date = new Date();
-    var time = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate() + ' ' + date.getHours() + ':' + (date.getMinutes() < 10 ? ('0' + date.getMinutes()) : date.getMinutes()) + ":" + (date.getSeconds() < 10 ? ('0' + date.getSeconds()) : date.getSeconds());
-    return time;
-	}
-	
-	function showSayTo() {
-		$("#from").html(sender);
-		$("#to").html(receiver == "all" ? "所有人" : receiver);
-	}
-	
-
-	
-	$('#input-content').bind('keydown', function(e){
-			if (e.which === 13 && e.ctrlKey == true) {
-				var msg = $('#input-content').html();
-				if (!msg) {return;}
-				if(receiver == "everyone") {
-					var message = message_generator(sender, msg);
-				    $("#messages").append(message);	
-				}
-				socket.emit('messages', {'sender': sender, 'receiver': receiver, 'message': msg});
-				$("#input-content").empty().focus();
-			}
-			
-	});
-	
-	
-	
-	$('#say').click(function() {
-		var msg = $('#input_content').html();
-		if (!msg) {return;}
-		if (receiver == "everyone") {
-			$("#contents").append('<div>你(' + now() + ')对 所有人 说：<br/>' + msg + '</div><br />');
-		} else {
-			$("#contents").append('<div style="color:#00f" >你(' + now() + ')对 ' + receiver + ' 说：<br/>' + msg + '</div><br />');
-		}
-		socket.emit('messages', {'sender': sender, 'receiver': receiver, 'message': msg});
-		$("#input_content").empty().focus();
-	});
-	
-	
-	
-	function message_generator(sender, message){
-			var message = '<div class="message">  <div class="avatar">'+ avatar + '</div> <div class="content"><span class= "name">' + sender + '</span><span class="timestamp">'  + now() + '</span><p>'  +  message + '</p></div><div class="clear"></div></div>';
-			return message;
-	}
-	
-	**/
 	
 	
 });

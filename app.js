@@ -76,14 +76,9 @@ app.use(function(err, req, res, next) {
 
 
 var users = {};
-var offlineUsers = {};
-socketUtility.main(io ,users, offlineUsers);
+socketUtility.main(io ,users);
+app.set('users_accounts', users);
 
-
-
-
-app.set('users_accounts', users, offlineUsers);
-app.set('offline_users_accounts', offlineUsers);
 
 
 //module.exports = app;
