@@ -22,3 +22,6 @@ A simple chat room web application.  http://gentle-waters-23533.herokuapp.com/
 
 ##TODO 
 https://github.com/hnaoto/simpleChat/issues
+
+##PS
+Lots of testings are helped by [@mnithya](https://github.com/mnithya). Big thanks =D
