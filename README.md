@@ -28,4 +28,4 @@ A simple chat room web application.  http://gentle-waters-23533.herokuapp.com/
 * Socket.io: https://github.com/socketio/socket.io
 
 ##PS
-Lots of testings are helped by [@mnithya](https://github.com/mnithya). Big thanks =D
+* Lots of testings are helped by [@mnithya](https://github.com/mnithya). Big thanks =D
