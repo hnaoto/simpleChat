@@ -15,9 +15,13 @@ $(document).ready(function (){
   
 	
 	simpleChat.prototype = {
-			
+
      init:function() {
-		  _mobileMenu();
+		 _initialMobileMenu();
+		 _initialEmoji();
+		 _initialMenu();
+		  
+		  
 		  this.socket = io.connect();
 		  this.socket.emit('online',  {user: sender});
 		  this.socket.emit('history', {user: sender});
@@ -70,10 +74,9 @@ $(document).ready(function (){
 		this.socket.on('history', function(data){
 		
 			console.log(data);
-			
+
 			
 			$("#messages").find('.message').remove();
-			
 			for (var i = 0; i < data.length; i++) {
 				if(!data[i]['private']) {
 					var message = _message_generator(data[i]['data']['sender'], _showEmoji(data[i]['data']['message']), false, false);
@@ -89,20 +92,15 @@ $(document).ready(function (){
 				}
 			}
 			
-			
-			/**
-			for (var i = 0; i < data['public'].length; i++) {
-				var message = _message_generator(data['public'][i]['sender'], _showEmoji(data['public'][i]['message']), false, false);
-				$("#messages").append(message);
-			}
-			**/
-			
-				
+			  
+					
 				if(window.receiver == 'everyone') {
 					$(".everyone").removeClass("visibility");
+					$("#messages").scrollTop($('#messages').height());	
 				}
 				
-
+				
+	
 			
 		});
 		
@@ -120,20 +118,7 @@ $(document).ready(function (){
 				}
 				
 			}
-			
-			
-			/**
-			if(data.receiver == sender && window.receiver == data.sender) {
-				 var message =   _message_generator(data.sender, _showEmoji(data.message), true, false);
-				
-				//_private_message_generator(data.sender, _showEmoji(data.message), avatar);
-				$("#messages").append(message);
-				var str = '.' + window.receiver;
-				$(str).removeClass("visibility");
-				
-			} 
-			**/
-			
+
 			
 			if(data.receiver == sender) {
 	
@@ -155,72 +140,18 @@ $(document).ready(function (){
 				
 				
 			}
-		
-			
-			
+						
+			$("#messages").scrollTop($("#messages").height());
 		});
 	
-		
-		
-		 _submitMessageEvent(sender, window.receiver, this.socket); 
+	
+		 _submitMessageEvent(sender, window.receiver, this.socket);
+		  
 		  return this;
-	 },
+	 }
 		
 		
 
-	 initialEmoji: function() {
-		var emojiWrapper = $("#emoji-wrapper");
-		for (var i = 12; i > 0; i--) {
-			var emoji = "<img src=images/emoji/0" + i +".gif" + " title=" + i + ">";
-			emojiWrapper.append(emoji);
-	  }
-		
-		
-		
-		$(document).bind("click",function(e){
-			e.stopPropagation();
-			var id = $(e.target).attr("id");
-			if ( id == "input-emoji-button") {
-				$("#emoji-wrapper").css("display", "block");
-			}else{
-				$("#emoji-wrapper").css("display", "none");
-			}
-			
-		});
-		
-		
-		
-		
-
-		$("#emoji-wrapper").bind("click", function(e){
-			var nodeName = e.target.nodeName.toLowerCase();
-			e.preventDefault();
-			e.stopPropagation();
-			
-			if (nodeName === "img"){
-			 	$("#input-content input").focus();
-			 	$("#input-content input").val( $("#input-content input").val() + "[emoji:" + e.target.title + "]");
-				$("#emoji-wrapper").css("display","none");
-			}
-		});
-		
-		
-	}, 
-	
-	initialMenu: function() {
-		$(document).bind("click",function(e){
-			e.stopPropagation();
-			var id = $(e.target).attr("id");
-			if ( id == "input-button") {
-				$("#input-menu").css("display", "block");
-			}else{
-				$("#input-menu").css("display", "none");
-			}
-			
-		});
-		
-		
-	}
 
 }
 		
@@ -228,10 +159,8 @@ $(document).ready(function (){
 	
 	
 	simpleChat.prototype.init.prototype=simpleChat.prototype;
-	
     var simpleChat = new simpleChat();
-	simpleChat.initialEmoji();
-	simpleChat.initialMenu();
+	
 	
 	
 	

@@ -1,5 +1,58 @@
+
+  function  _initialMenu() {
+		$(document).bind("click",function(e){
+			e.stopPropagation();
+			var id = $(e.target).attr("id");
+			if ( id == "input-button") {
+				$("#input-menu").css("display", "block");
+			}else{
+				$("#input-menu").css("display", "none");
+			}		
+		});
+
+	}
  
-   function _mobileMenu(){
+ 
+ 
+ 
+ 	 function _initialEmoji() {
+		var emojiWrapper = $("#emoji-wrapper");
+		for (var i = 12; i > 0; i--) {
+			var emoji = "<img src=images/emoji/0" + i +".gif" + " title=" + i + ">";
+			emojiWrapper.append(emoji);
+	  }
+		
+		
+		
+		$(document).bind("click",function(e){
+			e.stopPropagation();
+			var id = $(e.target).attr("id");
+			if ( id == "input-emoji-button") {
+				$("#emoji-wrapper").css("display", "block");
+			}else{
+				$("#emoji-wrapper").css("display", "none");
+			}
+			
+		});
+		
+		$("#emoji-wrapper").bind("click", function(e){
+			var nodeName = e.target.nodeName.toLowerCase();
+			
+			if (nodeName === "img"){
+			 	$("#input-content input").focus();
+			 	$("#input-content input").val( $("#input-content input").val() + "[emoji:" + e.target.title + "]");
+				$("#emoji-wrapper").css("display","none");
+			}
+		});
+		
+		
+	}
+	
+
+ 
+ 
+ 
+   function _initialMobileMenu(){
 	   	$('#mobile-menu, nav').bind('click', function(e) {
 			
 			$('nav').toggleClass('showing');
@@ -145,7 +198,7 @@
 				
 				var sys = 'You are talking to ' + receiver ;
 				$('#notification').html(sys);
-				
+				$("#messages").scrollTop($("#messages").height());
 				
 				/**
 				$('#messages').empty().append(sys);	
@@ -184,6 +237,7 @@
 				}
 				socket.emit('messages', {'sender': sender, 'receiver': window.receiver, 'message': msg, timestamp:_now()});
 				$(this).val("").focus();
+				$("#messages").scrollTop($("#messages").height());
 			}
 			
 		});
