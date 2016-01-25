@@ -21,11 +21,11 @@ A simple chat room web application.  http://gentle-waters-23533.herokuapp.com/
 * Responsive design for mobile user
 
 ##TODO/ Coming Features
-https://github.com/hnaoto/simpleChat/issues
+* https://github.com/hnaoto/simpleChat/issues
 
 ##References 
-N-Chat: https://github.com/nswbmw/N-chat 
-Socket.io: https://github.com/socketio/socket.io
+* N-Chat: https://github.com/nswbmw/N-chat 
+* Socket.io: https://github.com/socketio/socket.io
 
 ##PS
 Lots of testings are helped by [@mnithya](https://github.com/mnithya). Big thanks =D
