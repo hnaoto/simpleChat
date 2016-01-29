@@ -91,17 +91,24 @@
    
    
    
+   function _message_generator_e(className, displayName, message, timestamp, read, visibility ){
+	    var avatar =  '<img src="images/avatar_'+ _stringHash(displayName) + '.jpg">';
+	    var msg = '<div class="message ' +  visibility + ' ' + className  +'" read="' +  read  +   '">  <div class="avatar">'+ avatar + '</div> <div class="content"><span class= "name">' + displayName + '</span><span class="timestamp">'  + timestamp + '</span><p>'  +  _showEmoji(message) + '</p></div><div class="clear"></div></div>';
+		return msg;
+   }
+   
+   
    
  
    	//clean this function
-	function _message_generator(sender, message,timestamp, private, local){
+	function _message_generator(sender, message,timestamp, private, local, visibility){
 		    var avatar =  '<img src="images/avatar_'+ _stringHash(sender) + '.jpg">';
 			var msg = '';
 
 		
 			//rewrite as swtich
 			if(private && !local){
-				msg = '<div class="message visibility ' + sender  +'" read=false  ">  <div class="avatar">'+ avatar + '</div> <div class="content"><span class= "name">' + sender + '</span><span class="timestamp">'  + timestamp + '</span><p>'  +  message + '</p></div><div class="clear"></div></div>';
+				msg = '<div class="message ' +  visibility + ' ' + sender  +'" read=false  ">  <div class="avatar">'+ avatar + '</div> <div class="content"><span class= "name">' + sender + '</span><span class="timestamp">'  + timestamp + '</span><p>'  +  message + '</p></div><div class="clear"></div></div>';
 			}
 			
 			
@@ -128,12 +135,27 @@
 	
 	
 	
-	function _hitory_message_generator(sender, receiver, message, timestamp, local) {
-		var avatar =  '<img src="images/avatar_'+ _stringHash(sender) + '.jpg">';
+	function _hitory_message_generator(className, displayName, message, timestamp, local) {
+		var avatar =  '<img src="images/avatar_'+ _stringHash(displayName) + '.jpg">';
 		
+		
+		/**
 		if(local){
-		msg = '<div class="message visibility ' +  receiver  +'" read=true ">  <div class="avatar">'+ avatar + '</div> <div class="content"><span class= "name">' +   sender + '</span><span class="timestamp">'  + timestamp + '</span><p>'  +  message + '</p></div><div class="clear"></div></div>';
+			msg = '<div class="message visibility ' +  className  +'" read=true ">  <div class="avatar">'+ avatar + '</div> <div class="content"><span class= "name">' +   displayName + '</span><span class="timestamp">'  + timestamp + '</span><p>'  +  _showEmoji(message) + '</p></div><div class="clear"></div></div>';
+		}else{
+			msg = '<div class="message visibility ' +  displayName  +'" read=true ">  <div class="avatar">'+ avatar + '</div> <div class="content"><span class= "name">' +   displayName + '</span><span class="timestamp">'  + timestamp + '</span><p>'  +  _showEmoji(message) + '</p></div><div class="clear"></div></div>';			
 		}
+		
+		**/
+		
+		var name1 = className;
+		var name2 = displayName;
+		if(!local){
+			name1 = displayName;
+		}
+		
+		var msg = '<div class="message visibility ' +  name1  +'" read=true ">  <div class="avatar">'+ avatar + '</div> <div class="content"><span class= "name">' +   name2 + '</span><span class="timestamp">'  + timestamp + '</span><p>'  +  _showEmoji(message) + '</p></div><div class="clear"></div></div>';
+		
 		return msg;
 		
 	}
@@ -226,11 +248,15 @@
 				var msg = _showEmoji($(this).val());
 				if (!msg) {return;}
 				if(window.receiver == "everyone") {
-					var message = _message_generator(sender, msg, _now(), false, true);
-				    $("#messages").append(message);	
-				} else{
+					//var message = _message_generator(sender, msg, _now(), false, true);
+					var message = _message_generator_e('everyone', sender, msg, _now(), true, "");
 					
-					var message = _message_generator(sender, msg, _now(), true, true);
+				    $("#messages").append(message);	
+					
+				} else{
+					console.log(window.receiver);
+					var message = _message_generator_e(window.receiver, sender, msg, _now(), true," ");
+					//var message = _message_generator(sender, msg, _now(), true, true);
 				    $("#messages").append(message);	
 					//var str = '.' + sender;
 					//$(str).removeClass("visibility");
