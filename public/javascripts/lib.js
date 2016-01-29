@@ -93,25 +93,25 @@
    
    
  
-   	//clena this function
-	function _message_generator(sender, message, private, local, history){
+   	//clean this function
+	function _message_generator(sender, message,timestamp, private, local){
 		    var avatar =  '<img src="images/avatar_'+ _stringHash(sender) + '.jpg">';
 			var msg = '';
 
 		
 			//rewrite as swtich
 			if(private && !local){
-				msg = '<div class="message visibility ' + sender  +'" read=false  ">  <div class="avatar">'+ avatar + '</div> <div class="content"><span class= "name">' + sender + '</span><span class="timestamp">'  + _now() + '</span><p>'  +  message + '</p></div><div class="clear"></div></div>';
+				msg = '<div class="message visibility ' + sender  +'" read=false  ">  <div class="avatar">'+ avatar + '</div> <div class="content"><span class= "name">' + sender + '</span><span class="timestamp">'  + timestamp + '</span><p>'  +  message + '</p></div><div class="clear"></div></div>';
 			}
 			
 			
 			if(private && local) {
-				msg = '<div class="message ' + window.receiver  +'" read=true ">  <div class="avatar">'+ avatar + '</div> <div class="content"><span class= "name">' + sender + '</span><span class="timestamp">'  + _now() + '</span><p>'  +  message + '</p></div><div class="clear"></div></div>';
+				msg = '<div class="message ' + window.receiver  +'" read=true ">  <div class="avatar">'+ avatar + '</div> <div class="content"><span class= "name">' + sender + '</span><span class="timestamp">'  + timestamp + '</span><p>'  +  message + '</p></div><div class="clear"></div></div>';
 			}
 			
 			
 			if(!private && local ){
-				msg = '<div class="message everyone ">  <div class="avatar">'+ avatar + '</div> <div class="content"><span class= "name">' + sender + '</span><span class="timestamp">'  + _now() + '</span><p>'  +  message + '</p></div><div class="clear"></div></div>';
+				msg = '<div class="message everyone ">  <div class="avatar">'+ avatar + '</div> <div class="content"><span class= "name">' + sender + '</span><span class="timestamp">'  + timestamp + '</span><p>'  +  message + '</p></div><div class="clear"></div></div>';
 				
 			}
 			
@@ -119,7 +119,7 @@
 		
 				
 			if(!private && !local){
-				msg = '<div class="message everyone visibility">  <div class="avatar">'+ avatar + '</div> <div class="content"><span class= "name">' + sender + '</span><span class="timestamp">'  + _now() + '</span><p>'  +  message + '</p></div><div class="clear"></div></div>';
+				msg = '<div class="message everyone visibility">  <div class="avatar">'+ avatar + '</div> <div class="content"><span class= "name">' + sender + '</span><span class="timestamp">'  + timestamp + '</span><p>'  +  message + '</p></div><div class="clear"></div></div>';
 			}	
 			
 			
@@ -128,13 +128,13 @@
 	
 	
 	
-	function _hitory_message_generator(sender, receiver, message, local) {
+	function _hitory_message_generator(sender, receiver, message, timestamp, local) {
 		var avatar =  '<img src="images/avatar_'+ _stringHash(sender) + '.jpg">';
 		
 		if(local){
-		msg = '<div class="message visibility ' +  receiver  +'" read=true ">  <div class="avatar">'+ avatar + '</div> <div class="content"><span class= "name">' +   sender + '</span><span class="timestamp">'  + _now() + '</span><p>'  +  message + '</p></div><div class="clear"></div></div>';
+		msg = '<div class="message visibility ' +  receiver  +'" read=true ">  <div class="avatar">'+ avatar + '</div> <div class="content"><span class= "name">' +   sender + '</span><span class="timestamp">'  + timestamp + '</span><p>'  +  message + '</p></div><div class="clear"></div></div>';
 		}
-		return msg
+		return msg;
 		
 	}
 	
@@ -226,11 +226,11 @@
 				var msg = _showEmoji($(this).val());
 				if (!msg) {return;}
 				if(window.receiver == "everyone") {
-					var message = _message_generator(sender, msg, false, true);
+					var message = _message_generator(sender, msg, _now(), false, true);
 				    $("#messages").append(message);	
 				} else{
 					
-					var message = _message_generator(sender, msg, true, true);
+					var message = _message_generator(sender, msg, _now(), true, true);
 				    $("#messages").append(message);	
 					//var str = '.' + sender;
 					//$(str).removeClass("visibility");

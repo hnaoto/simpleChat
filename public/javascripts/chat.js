@@ -73,20 +73,24 @@ $(document).ready(function (){
 		
 		this.socket.on('history', function(data){
 		
-			console.log(data);
+			//console.log(data);
 
 			
 			$("#messages").find('.message').remove();
 			for (var i = 0; i < data.length; i++) {
 				if(!data[i]['private']) {
-					var message = _message_generator(data[i]['data']['sender'], _showEmoji(data[i]['data']['message']), false, false);
+					var message = _message_generator(data[i]['data']['sender'], _showEmoji(data[i]['data']['message']), data[i]['data']['timestamp'], false, false);
 					$("#messages").append(message);
 				}else {
 					
 						if (data[i]['data']['receiver'] ==  sender ) { 
-							var message = _message_generator(data[i]['data']['sender'], _showEmoji(data[i]['data']['message']), true, false);  
+							if(data[i]['data']['read'] == true){
+							var message = _message_generator(data[i]['data']['sender'], _showEmoji(data[i]['data']['message']), data[i]['data']['timestamp'],true, true);} else{
+								var message = _message_generator(data[i]['data']['sender'], _showEmoji(data[i]['data']['message']), data[i]['data']['timestamp'],true, false);
+								
+							}
 						}else {
-							var message = _hitory_message_generator(data[i]['data']['sender'],data[i]['data']['receiver'], _showEmoji(data[i]['data']['message']), true);
+							var message = _hitory_message_generator(data[i]['data']['sender'],data[i]['data']['receiver'], _showEmoji(data[i]['data']['message']), data[i]['data']['timestamp'],true);
 						}
 					$("#messages").append(message); 
 				}
@@ -108,7 +112,7 @@ $(document).ready(function (){
 		this.socket.on('messages', function(data){
 			
 			if(data.receiver == 'everyone') { 
-				var message = _message_generator(data.sender, _showEmoji(data.message), false, false);
+				var message = _message_generator(data.sender, _showEmoji(data.message), data.timestamp, false, false);
 				$("#messages").append(message);
 				//$(".everyone").addClass("visibility");
 				
@@ -122,7 +126,7 @@ $(document).ready(function (){
 			
 			if(data.receiver == sender) {
 	
-				var message =   _message_generator(data.sender, _showEmoji(data.message), true, false);
+				var message =   _message_generator(data.sender, _showEmoji(data.message), data.timestamp, true, false);
 				$("#messages").append(message);
 				
 				
