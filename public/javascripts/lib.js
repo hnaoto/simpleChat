@@ -99,7 +99,7 @@
    
    
    
- 
+     /**
    	//clean this function
 	function _message_generator(sender, message,timestamp, private, local, visibility){
 		    var avatar =  '<img src="images/avatar_'+ _stringHash(sender) + '.jpg">';
@@ -132,8 +132,7 @@
 			
 			return msg;
 	}
-	
-	
+	 **/
 	
 	function _hitory_message_generator(className, displayName, message, timestamp, local) {
 		var avatar =  '<img src="images/avatar_'+ _stringHash(displayName) + '.jpg">';
@@ -220,8 +219,9 @@
 				
 				var sys = 'You are talking to ' + receiver ;
 				$('#notification').html(sys);
-				$("#messages").scrollTop($("#messages").height());
-				
+				//$("#messages").scrollTop($("#messages").height());
+				$("#messages").scrollTop(200000000);
+
 				/**
 				$('#messages').empty().append(sys);	
 				
@@ -245,22 +245,26 @@
 	function _submitMessageEvent(sender, receiver, socket){
 			$("#input-content input").bind('keydown', function(e){
 			if (e.which === 13 && e.ctrlKey == true || e.which === 13) {
-				var msg = _showEmoji($(this).val());
+				var msg = $(this).val();
 				if (!msg) {return;}
+				e.preventDefault();
+				e.stopPropagation();
+				//var msg = _showEmoji($(this).val());
+				/**
 				if(window.receiver == "everyone") {
-					//var message = _message_generator(sender, msg, _now(), false, true);
 					var message = _message_generator_e('everyone', sender, msg, _now(), true, "");
 					
 				    $("#messages").append(message);	
 					
 				} else{
-					console.log(window.receiver);
 					var message = _message_generator_e(window.receiver, sender, msg, _now(), true," ");
-					//var message = _message_generator(sender, msg, _now(), true, true);
 				    $("#messages").append(message);	
-					//var str = '.' + sender;
-					//$(str).removeClass("visibility");
+			
+			
 				}
+			    **/	
+				var message = _message_generator_e(window.receiver, sender, msg, _now(), true," ");
+				$("#messages").append(message);	
 				socket.emit('messages', {'sender': sender, 'receiver': window.receiver, 'message': msg, timestamp:_now()});
 				$(this).val("").focus();
 				$("#messages").scrollTop($("#messages").height());

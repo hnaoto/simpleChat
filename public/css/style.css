@@ -84,7 +84,7 @@ section#contents{
     padding: 20px 0 0px 0;
     width: 95%;
     color: #B4A9B4;
-    font-family: "kefa","merriweather";
+    font-family: "kefa","tw cen mt";
     font-weight: lighter;
     font-size: 1.7rem;
     border-bottom: 0.10692rem solid #EEE;
@@ -140,7 +140,7 @@ section#contents{
 }
 
 .message span.name{
-	font-family:"Kefa", "merriweather";
+	font-family:"Kefa", "tw cen mt";
 	font-size: 1.7rem;
 }
 
@@ -331,7 +331,7 @@ nav{
 .nav-box h2{
 	color:#FFFFFF;
 	font-size:2rem;
-	font-family:"kefa","merriweather";
+	font-family:"kefa","tw cen mt";
 	
 }
 
@@ -372,7 +372,7 @@ nav{
 h3{
 	font-size:1.5em;
 	color:#EAF2F9;
-	font-family:"kefa","merriweather";
+	font-family:"kefa","tw cen mt";
 	font-weight:500;
 	float:left;
 	padding: 10px 0px 0px 0px;
@@ -424,12 +424,12 @@ h3{
 
 
 
-	h4{
-		color: #EAF2F9;
-    	font-family: "kefa","merriweather";
-		font-size:1.3rem;
-		line-height:30px;
-	}
+h4{
+	color: #EAF2F9;
+    font-family: "kefa","tw cen mt";
+	font-size:1.3rem;
+	line-height:30px;
+}
 
 @media screen and (max-width:1200px) {
 	body{

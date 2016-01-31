@@ -26,6 +26,7 @@ $(document).ready(function (){
 		  this.socket.emit('online',  {user: sender});
 		  this.socket.emit('history', {user: sender});
 		  this.socket.on('online', function(data) {
+			  $("#messages").scrollTop(200000000);
 			  if (data.user != sender) {
 				  var sys = data.user + ' entered the room.';
 				  
@@ -61,7 +62,6 @@ $(document).ready(function (){
 		this.socket.on('reconnect', function() {
 			var socket = io.connect();
   			socket.emit('online', {user: sender});
-			
 		});
 		
 		
@@ -72,9 +72,9 @@ $(document).ready(function (){
 		 
 		
 		this.socket.on('history', function(data){
-		
 			console.log(data);
-
+			
+		
 			
 			$("#messages").find('.message').remove();
 			for (var i = 0; i < data.length; i++) {
@@ -90,37 +90,18 @@ $(document).ready(function (){
 						//var message = _message_generator_e(data[i]['data']['sender'] ,data[i]['data']['sender'], data[i]['data']['message'], data[i]['data']['timestamp'], true, 'visibility');
 					} else {
 						var message = _hitory_message_generator(data[i]['data']['receiver'] ,data[i]['data']['sender'], data[i]['data']['message'], data[i]['data']['timestamp'], false);
-
-					
 					}
-					/**
-						if (data[i]['data']['receiver'] ==  sender ) { 
-							if(data[i]['data']['read'] == true){
-								//var message = _message_generator(data[i]['data']['sender'], _showEmoji(data[i]['data']['message']), data[i]['data']['timestamp'],true, true);} else{
-								var message = _message_generator_e(data[i]['data']['sender'] ,data[i]['data']['sender'], data[i]['data']['message'], data[i]['data']['timestamp'], true, 'visibility');
-								
-							}
-						}else {
-								console.log(data[i]);
-								var message = _message_generator_e(data[i]['data']['receiver'] ,data[i]['data']['sender'], data[i]['data']['message'], data[i]['data']['timestamp'], false, 'visibility');
-							
-							//var message = _hitory_message_generator(data[i]['data']['sender'],data[i]['data']['receiver'], _showEmoji(data[i]['data']['message']), data[i]['data']['timestamp'],true);
-						}
-						**/
 					$("#messages").append(message); 
 				}
 			}
 			
 			  
 					
-				if(window.receiver == 'everyone') {
-					$(".everyone").removeClass("visibility");
-					$("#messages").scrollTop($('#messages').height());	
-				}
-				
-				
+			if(window.receiver == 'everyone') {
+				$(".everyone").removeClass("visibility");
+				$("#messages").scrollTop(200000000);
 	
-			
+			}
 		});
 		
 		
@@ -171,7 +152,8 @@ $(document).ready(function (){
 				
 			}
 						
-			$("#messages").scrollTop($("#messages").height());
+				$("#messages").scrollTop(200000000);
+
 		});
 	
 	
