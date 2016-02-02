@@ -100,3 +100,27 @@ html, body {
 	
 	
 }
+
+
+
+
+
+@media screen and (max-width:1390px){
+	body{
+		background-size:auto;
+	}
+	
+	#wrapper{
+		min-width:300px;
+		
+	}
+	#content input{
+		width:100%;
+		margin-bottom: 5px;
+
+	}
+	
+	#content #enter_button{
+		width:100%;
+		
+	}
