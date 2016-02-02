@@ -1,7 +1,7 @@
 # simpleChat
 * A simple chat room web application.  
 * Demo on AWS: http://ec2-52-91-224-142.compute-1.amazonaws.com:8080/
-* <Old Demo on heroku: http://gentle-waters-23533.herokuapp.com/>
+* <s>Old Demo on heroku: http://gentle-waters-23533.herokuapp.com/ </s>
 
 ##modules dependency
 * express 4 
