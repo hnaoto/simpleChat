@@ -17,6 +17,7 @@ var server = app.listen(app.get('port'));
 var io = require('socket.io')(server);
 var socketUtility = require('./lib/socket');
 var currentRoom = {};
+var dbUrl = '';
 
 
 // view engine setup
@@ -49,7 +50,7 @@ app.use(function(req, res, next) {
 // development error handler
 // will print stacktrace
 if (app.get('env') === 'development') {
-  app.use(function(err, req, res, next) {
+	app.use(function(err, req, res, next) {
     res.status(err.status || 500);
     res.render('error', {
       message: err.message,
@@ -70,14 +71,22 @@ app.use(function(err, req, res, next) {
 
 
 
+//dbUrl
+if (app.get('env') === 'development') {
+	dbUrl = 'mongodb://localhost:27017/simpleChat';
+}
+if (app.get('env') === 'production') {
+	dbUrl = 'mongodb://chat:nodesimplechat@ds029615.mongolab.com:29615/nodesimplechat';
+}
 
 
 //socket.io
-
-
 var users = {};
-socketUtility.main(io ,users);
+socketUtility.main(io ,users, dbUrl);
+//global varibles
 app.set('users_accounts', users);
+
+
 
 
 
