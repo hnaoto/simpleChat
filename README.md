@@ -1,17 +1,16 @@
 # simpleChat
 * A simple chat room web application.  
-* http://ec2-52-91-224-142.compute-1.amazonaws.com:8080/
-* Demo: http://gentle-waters-23533.herokuapp.com/
+* Demo on AWS: http://ec2-52-91-224-142.compute-1.amazonaws.com:8080/
+* <s>Old Demo on heroku: http://gentle-waters-23533.herokuapp.com/ </s>
 
-
-##modules dependency
+##Modules Dependency
 * express 4 
 * socket.io 
 * cookie-parser
 * ejs
 * mongoDB
 
-##Functionality
+##Functionalities
 * One could join the "default" chat room after entering username
 * Username will be stored in the cookie, so user don't need to enter the username again(unless cookie is reset) 
 * All the users will receive the message in the "default" room
