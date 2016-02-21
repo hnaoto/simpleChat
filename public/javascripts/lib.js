@@ -9,7 +9,6 @@
 				$("#input-menu").css("display", "none");
 			}		
 		});
-
 	}
  
  
@@ -64,16 +63,12 @@
    function _flushusers(users){
 		$('#userlist').empty().append('<li class="nav-box"  name="everyone" onselectstart="return false"> <h2> ＃Default</h2></li>');
 		$('#userlist').css('opacity', '1');
-
-
-		
-		//merge these two group
-		
-
-	
+       
+	  console.log(window.pmn_history);
 		$.each(users, function(key, value) {
+            console.log(users);
 			avatar =  '<img src="images/avatar_'+ _stringHash(key)+ '.jpg">';
-			$('#userlist').append('<li name="' + key + '"  class="nav-box"  >' + avatar + '<h3>' + key + '</h3><span class="pmn visibility"> 0</span></li>');
+            $('#userlist').append('<li name="' + key + '"  class="nav-box"  >' + avatar + '<h3>' + key + '</h3><span class="pmn visibility">' +  0  +'</span></li>');
 			
 			if(!value['online']){
 				$('.nav-box[name=' + key +  ']').css('opacity','0.5');
@@ -86,6 +81,13 @@
 		$(".nav-box[name='" + window.receiver + "']").addClass('selected-box');
 		
    }
+
+ function _pmn(users){
+     	$.each(users, function(key, value) {
+            $('.nav-box[name=' + key +  ']').find('.pmn').html(value).removeClass('visibility');
+        });
+ }
+
       
    
    
@@ -202,7 +204,7 @@
 		
 	}
 	
-	function _privateReceiver(sender){
+	function _privateReceiver(sender, socket){
 		
 			$('#userlist > li').click(function() {
 			if($(this).attr('name') != sender) {
@@ -223,6 +225,10 @@
 				$('#notification').html(sys);
 				//$("#messages").scrollTop($("#messages").height());
 				$("#messages").scrollTop(200000000);
+                window.socket.emit('update',  {sender: window.receiver});
+                
+                
+                
 
 				/**
 				$('#messages').empty().append(sys);	
@@ -267,9 +273,10 @@
 			    **/	
 				var message = _message_generator_e(window.receiver, sender, msg, _now(), true," ");
 				$("#messages").append(message);	
-				socket.emit('messages', {'sender': sender, 'receiver': window.receiver, 'message': msg, timestamp:_now()});
+				window.socket.emit('messages', {'sender': sender, 'receiver': window.receiver, 'message': msg, timestamp:_now()});
 				$(this).val("").focus();
-				$("#messages").scrollTop($("#messages").height());
+				//$("#messages").scrollTop($("#messages").height());
+                $("#messages").scrollTop(200000000);
 			}
 			
 		});

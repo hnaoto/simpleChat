@@ -3,8 +3,10 @@
 $(document).ready(function (){
 	
     var sender = $.cookie('user');
+    //var socket = 
     window.receiver = 'everyone';
-	//var socket = io.connect();
+    window.pmn_history =  {};
+	window.socket = io.connect();
 	
 	
 	
@@ -35,7 +37,7 @@ $(document).ready(function (){
 			  }
 		  	  $('#notification').html(sys);
 			  _flushusers(data.users);
-			  _privateReceiver(sender);
+			  _privateReceiver(sender, io.connect());
     	  });
 		   
 		  
@@ -73,48 +75,58 @@ $(document).ready(function (){
 		
 		this.socket.on('history', function(data){
 			console.log(data);
-			
-		
-			
+          
 			$("#messages").find('.message').remove();
 			for (var i = 0; i < data.length; i++) {
+                //clean up the nested condistions 
 				if(!data[i]['private']) {
-					//var message = _message_generator(data[i]['data']['sender'], _showEmoji(data[i]['data']['message']), data[i]['data']['timestamp'], false, false);
 					var message = _message_generator_e('everyone', data[i]['data']['sender'], data[i]['data']['message'], data[i]['data']['timestamp'], true, 'visibility');
 					
 					$("#messages").append(message);
-				}else {
-					
+				}else {		
 					if (data[i]['data']['sender'] ==  sender ) { 
 					    var message = _hitory_message_generator(data[i]['data']['receiver'] ,data[i]['data']['sender'], data[i]['data']['message'], data[i]['data']['timestamp'], true);
-						//var message = _message_generator_e(data[i]['data']['sender'] ,data[i]['data']['sender'], data[i]['data']['message'], data[i]['data']['timestamp'], true, 'visibility');
+
 					} else {
+                        
 						var message = _hitory_message_generator(data[i]['data']['receiver'] ,data[i]['data']['sender'], data[i]['data']['message'], data[i]['data']['timestamp'], false);
+                        
+                        if(!data[i]['read']) {
+                        if (jQuery.inArray(data[i]['data']['sender'], Object.keys(window.pmn_history)) == -1){
+                            window.pmn_history[data[i]['data']['sender']] = 1;
+                        }else{
+                           window.pmn_history[data[i]['data']['sender']] += 1; 
+                        }
 					}
+                    }
 					$("#messages").append(message); 
+                   
 				}
 			}
-			
-			  
+            console.log(window.pmn_history);
+             _pmn(window.pmn_history);
+           
+             
+            
+            
 					
 			if(window.receiver == 'everyone') {
 				$(".everyone").removeClass("visibility");
 				$("#messages").scrollTop(200000000);
 	
 			}
+            
+            
+            
 		});
 		
 		
 		this.socket.on('messages', function(data){
 			
 			if(data.receiver == 'everyone') { 
-				//var message = _message_generator(data.sender, _showEmoji(data.message), data.timestamp, false, false);
-				
+                
 				var message = _message_generator_e('everyone', data.sender, data.message, data.timestamp, true, 'visibility');
 				$("#messages").append(message);
-				//$(".everyone").addClass("visibility");
-				
-				
 				
 				if(window.receiver == 'everyone') {
 					$(".everyone").removeClass("visibility");
@@ -125,21 +137,13 @@ $(document).ready(function (){
 
 			
 			if(data.receiver == sender) {
-	
-	
-	
-				//var message =   _message_generator(data.sender, _showEmoji(data.message), data.timestamp, true, false);
-				
-				
-				/*8
-				if(private && !local){
-				msg = '<div class="message ' +  visibility + ' ' + sender  +'" read=false  ">  <div class="avatar">'+ avatar + '</div> <div class="content"><span class= "name">' + sender + '</span><span class="timestamp">'  + timestamp + '</span><p>'  +  message + '</p></div><div class="clear"></div></div>';
-			}
-			**/
 				
 				var message =   _message_generator_e(data.sender, data.sender, data.message, data.timestamp, false, 'visibility');	
 				$("#messages").append(message);
-				var count = $('.message.' + data.sender +  '[read=false]').length;
+				var count = $('.message.' + data.sender +  '[read=false]').length ;
+                if (data.sender in window.pmn_history){
+                    count += window.pmn_history[data.sender];
+                }
 				$('.nav-box[name=' + data.sender + ']').find('.pmn').html(count).removeClass('visibility');
 				
 
@@ -147,12 +151,15 @@ $(document).ready(function (){
 				if(window.receiver == data.sender) {
 					$('.' + window.receiver).removeClass('visibility').attr('read', true);
 					$('.nav-box[name=' + data.sender + ']').find('.pmn').addClass('visibility');
+                    window.socket.emit('update',  {sender: window.receiver});
+                    $("#messages").scrollTop(200000000);
 				}
 				
+                 
 				
 			}
 						
-				$("#messages").scrollTop(200000000);
+				//$("#messages").scrollTop(200000000);
 
 		});
 	
