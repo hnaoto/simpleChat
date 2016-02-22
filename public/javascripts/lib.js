@@ -226,6 +226,7 @@
 				//$("#messages").scrollTop($("#messages").height());
 				$("#messages").scrollTop(200000000);
                 window.socket.emit('update',  {sender: window.receiver});
+                window.pmn_history[window.receiver] = 0; 
                 
                 
                 

@@ -152,6 +152,7 @@ $(document).ready(function (){
 					$('.' + window.receiver).removeClass('visibility').attr('read', true);
 					$('.nav-box[name=' + data.sender + ']').find('.pmn').addClass('visibility');
                     window.socket.emit('update',  {sender: window.receiver});
+                    window.pmn_history[window.receiver] = 0; 
                     $("#messages").scrollTop(200000000);
 				}
 				
