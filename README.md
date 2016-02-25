@@ -15,12 +15,14 @@
 * Username will be stored in the cookie, so user don't need to enter the username again(unless cookie is reset) 
 * All the users will receive the message in the "default" room
 * One could send prviate message to any other user. 
-* One will get notification of private messages.
+* One will get notification of private messages. (number of unread private messages) 
 * If some user left the room (closed the tab), his avatar will gray out.
 * All the users will receive system notifications like "XYZ entered the room", "XYZ left the room", "You are talking to XYZ", "Server is down" .
-* Chat history
+* Chat history 
 * Inline Emoji 
 * Responsive design for mobile user
+* One could send offline message to a offline user. The offline user will get notification after re-entering the room.
+
 
 ##TODO/ Coming Features
 * https://github.com/hnaoto/simpleChat/issues
