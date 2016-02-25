@@ -21,7 +21,7 @@
 * Chat history 
 * Inline Emoji 
 * Responsive design for mobile user
-* One could send offline message to a offline user. The offline user will get notification after re-entering the room.
+* One could send offline message to an offline user. The offline user will get notification after re-entering the room.
 
 
 ##TODO/ Coming Features
