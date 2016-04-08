@@ -3,6 +3,13 @@
 * Demo on AWS: http://ec2-52-91-224-142.compute-1.amazonaws.com:8080/
 * <s>Old Demo on heroku: http://gentle-waters-23533.herokuapp.com/ </s>
 
+
+
+![screenshot](http://www.xxtri.net/wp-content/uploads/2015/01/sc_1.png)
+
+
+![screenshot mobile](http://www.xxtri.net/wp-content/uploads/2015/01/sc_2.png)
+
 ##Modules Dependency
 * express 4 
 * socket.io 
