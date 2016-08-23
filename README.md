@@ -5,11 +5,6 @@
 
 
 
-![screenshot](http://www.xxtri.net/wp-content/uploads/2015/01/sc_1.png)
-
-
-![screenshot mobile](http://www.xxtri.net/wp-content/uploads/2015/01/sc_2.png)
-
 ##Modules Dependency
 * express 4 
 * socket.io 
